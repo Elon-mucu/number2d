@@ -1,173 +1,172 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 void main() {
-  runApp(JuliaGymApp());
+  runApp(MyApp());
 }
 
-class JuliaGymApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Julia Gym',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blue, // Button background color
-          textTheme: ButtonTextTheme.primary, // Button text color
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Account Settings'),
+          backgroundColor: Colors.blue,
         ),
-      ),
-      home: ExerciseSelectionScreen(),
-    );
-  }
-}
-
-class ExerciseSelectionScreen extends StatefulWidget {
-  @override
-  _ExerciseSelectionScreenState createState() =>
-      _ExerciseSelectionScreenState();
-}
-
-class _ExerciseSelectionScreenState extends State<ExerciseSelectionScreen> {
-  List<String> selectedExercises = [];
-
-  final Map<String, List<String>> exercises = {
-    'Leg': ['Jumping Jack', 'Skipping', 'Mountain Climber', 'Squats', 'Lunges'],
-    'Abs': ['Crunches', 'Plank', 'Bicycle Crunch', 'Leg Raises', 'Sit-ups'],
-    'Shoulder': [
-      'Shoulder Press',
-      'Lateral Raise',
-      'Front Raise',
-      'Reverse Fly'
-    ],
-    'Chest': [
-      'Push-ups',
-      'Chest Press',
-      'Chest Fly',
-      'Incline Press',
-      'Decline Press'
-    ],
-    'Waist': [
-      'Side Bend',
-      'Russian Twist',
-      'Standing Oblique Crunch',
-      'Side Plank'
-    ],
-    'Biceps': ['Bicep Curl', 'Hammer Curl', 'Concentration Curl', 'Cable Curl'],
-    'Ribs': ['Side Stretch', 'Oblique Crunch', 'Rib Cage Pull', 'Torso Twist'],
-    'Thighs': [
-      'Thigh Adductor',
-      'Thigh Abductor',
-      'Leg Press',
-      'Hamstring Curl'
-    ],
-  };
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome to Julia\'s Gym'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Which exercise do you want to do?',
-              style: TextStyle(fontSize: 24),
-              textAlign: TextAlign.center,
-            ),
-            Expanded(
-              child: ListView(
-                children: exercises.keys.map((category) {
-                  return CheckboxListTile(
-                    title: Text(category),
-                    value: selectedExercises.contains(category),
-                    onChanged: (bool? value) {
-                      setState(() {
-                        if (value == true) {
-                          selectedExercises.add(category);
-                        } else {
-                          selectedExercises.remove(category);
-                        }
-                      });
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: selectedExercises.isNotEmpty
-                  ? () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ExerciseDetailsScreen(
-                              selectedExercises: selectedExercises,
-                              exercises: exercises),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'MT',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                      );
-                    }
-                  : null,
-              child: Text('Submit'),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                textStyle: TextStyle(fontSize: 16),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ExerciseDetailsScreen extends StatelessWidget {
-  final List<String> selectedExercises;
-  final Map<String, List<String>> exercises;
-
-  ExerciseDetailsScreen(
-      {required this.selectedExercises, required this.exercises});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Exercises'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: selectedExercises.map((category) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome to $category exercises, enjoy fitness.',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: exercises[category]!.map((exercise) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 4),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlueAccent.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text('- $exercise'),
-                    );
-                  }).toList(),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: Text(
+                      'Upload',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Text(
+                      'Remove',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Container(
+                height: 1,
+                color: Colors.grey[300],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Basic Info',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 18,
                 ),
-                SizedBox(height: 16),
-              ],
-            );
-          }).toList(),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Icon(Icons.info, color: Colors.black),
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      'Some user information such as email, name can not be updated, if you wish to update them, "Please click here"',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text('First Name', style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(width: 10),
+                  Text('Last Name'),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter First Name',
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Last Name',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text('Email Address', style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(width: 10),
+                  Text('Phone Number'),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Email Address',
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Phone Number',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
+                child: Text(
+                  'Change Phone Number',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
